@@ -20,6 +20,10 @@ function App ()
     {
       path: '/room',
       element: <div><RoomStatus /></div>
+    },
+    {
+      path: '/confirmation/:studentId',
+      element: <div><ConfirmationPage /></div>
     }
   ])
 
