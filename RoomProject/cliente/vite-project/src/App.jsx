@@ -16,6 +16,10 @@ function App ()
     {
       path: '/register',
       element: <div><Register /></div>
+    },
+    {
+      path: '/room',
+      element: <div><RoomStatus /></div>
     }
   ])
 
