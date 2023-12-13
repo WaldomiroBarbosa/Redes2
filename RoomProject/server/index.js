@@ -2,6 +2,8 @@ const express = require('express')
 const app = express()
 const mysql = require('mysql')
 const cors = require('cors')
+const QRCode = require('qrcode');
+const uuid = require('uuid');
 
 app.use(express.json())
 app.use(cors())
@@ -79,3 +81,32 @@ app.post('/room/free/:studentId', (req, res) => {
         }
     });
 });
+
+// Rota para reservar uma sala
+app.post('/reserve-room', async (req, res) => {
+    try {
+      // Lógica para salvar a reserva no banco de dados
+      const reservationId = uuid.v4();
+      // ... lógica de salvamento no banco de dados
+  
+      // Gere o QR code
+      const qrCodeDataURL = await generateQRCode(reservationId);
+  
+      // Envie a resposta ao cliente
+      res.json({ reservationId, qrCodeDataURL });
+    } catch (error) {
+      console.error('Erro ao reservar a sala:', error);
+      res.status(500).json({ error: 'Erro interno do servidor' });
+    }
+  });
+  
+  // Função para gerar o QR code
+  async function generateQRCode(data) {
+    try {
+      const qrCodeDataURL = await QRCode.toDataURL(data);
+      return qrCodeDataURL;
+    } catch (error) {
+      console.error('Erro ao gerar o QR code:', error);
+      throw error;
+    }
+  }
