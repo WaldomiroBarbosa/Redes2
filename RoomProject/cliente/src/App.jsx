@@ -3,6 +3,8 @@ import './App.css';
 import { Login } from './componentes/Login';
 import { Register } from './componentes/Register';
 import { Home } from './componentes/Home';
+import { RoomStatus } from './componentes/RoomStatus';
+import { ConfirmationPage } from './componentes/ConfirmationPage';
 import { createBrowserRouter, RouterProvider, Route, Routes } from 'react-router-dom';
 
 
@@ -18,6 +20,14 @@ const router = createBrowserRouter([
   {
     path: '/home',
     element: <div><Home userName="Nome do Usuário"/></div>
+  },
+  {
+    path: '/room',
+    element: <div><RoomStatus /></div>
+  },
+  {
+    path: '/confirmation/:studentId',
+    element: <div><ConfirmationPage /></div>
   }
 ]);
 
