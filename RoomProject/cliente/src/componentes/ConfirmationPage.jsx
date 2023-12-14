@@ -1,11 +1,11 @@
 // ConfirmationPage.js
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'
 
-const ConfirmationPage = ({ match }) => {
+export const ConfirmationPage = ({ match }) => {
   const [status, setStatus] = useState('');
   const studentId = match.params.studentId;
-  const history = useHistory();
+  const history = useNavigate();
 
   useEffect(() => {
     // Realize uma chamada à API para verificar o status da sala usando o studentId
@@ -28,8 +28,7 @@ const ConfirmationPage = ({ match }) => {
   }, [studentId]);
 
   const handleLogout = () => {
-    // Adicione lógica para encerrar a sessão ou limpar os dados do usuário
-    // e redirecione para a tela de login
+
     history.push('/');
   };
 

@@ -1,7 +1,7 @@
 // RoomStatus.js
 import React, { useState, useEffect } from 'react';
 
-const RoomStatus = () => {
+export const RoomStatus = () => {
   const [roomStatus, setRoomStatus] = useState('reserved');
   const studentId = '12345'; // Substitua pelo ID do estudante real
 
