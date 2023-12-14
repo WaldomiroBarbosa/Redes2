@@ -24,6 +24,7 @@
 
 label {
   text-align: left;
+  margin-bottom: 5px;
   padding: 0.25rem 0;
 }
 
@@ -31,7 +32,7 @@ input {
   margin: 0.5rem 0;
   padding: 1rem;
   border: none;
-  border-radius: 10p;
+  border-radius: 10px;
 }
 
 button {
@@ -41,6 +42,13 @@ button {
   border-radius: 10px;
   cursor: pointer;
   color: purple;
+}
+
+select {
+  border: none;
+  border-radius:5px;
+  margin-bottom: 9px;
+  padding: 0.25rem 0;
 }
 
 .link-btn {
@@ -53,4 +61,16 @@ button {
   border: black;
   background-color: black;
   color: white;
+}
+
+.home-container {
+  text-align: center;
+}
+
+.form-container {
+  margin-top: 20px;
+  padding: 20px;
+  border: 1px solid white;
+  border-radius: 10px;
+  display: inline-block;
 }
