@@ -4,6 +4,7 @@ import { Login } from './componentes/Login';
 import { Register } from './componentes/Register';
 import { Home } from './componentes/Home';
 import { RoomStatus } from './componentes/RoomStatus';
+import { Grupo } from './componentes/Grupo';
 import { ConfirmationPage } from './componentes/ConfirmationPage';
 import { createBrowserRouter, RouterProvider, Route, Routes } from 'react-router-dom';
 
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
   {
     path: '/confirmation/:studentId',
     element: <div><ConfirmationPage /></div>
+  }, 
+  {
+    path: '/grupo',
+    element: <div><Grupo /></div>
   }
 ]);
 

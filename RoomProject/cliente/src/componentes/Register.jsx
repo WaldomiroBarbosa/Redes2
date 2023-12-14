@@ -60,7 +60,7 @@ export const Register = () => {
           name="email"
           id="email"
           onChange={(e) => setEmail(e.target.value)}
-          placeholder="Seu email aqui."
+          placeholder="Seu email..."
         />
 
         <button type="submit">Registrar</button>

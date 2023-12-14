@@ -133,3 +133,87 @@ app.post('/login', (req, res) => {
     })
 
 })
+
+app.get('/buscar-usuario/:studentId', (req, res) => {
+    const sentMatricula = req.params.studentId;
+
+    // Lógica para buscar o usuário no banco de dados
+    const SQL = 'SELECT * FROM users WHERE studentId = ?';
+
+    db.query(SQL, [sentMatricula], (err, results) => {
+        if (err) {
+            res.status(500).send({ error: err });
+        } else {
+            if (results.length > 0) {
+                res.status(200).send({ studentId: results[0].studentId });
+            } else {
+                res.status(404).send({ message: 'Usuário não encontrado' });
+            }
+        }
+    });
+});
+
+const inserirNovoUsuario = (matricula, res) => {
+    // Inserir novo usuário na tabela do grupo
+    const insereUsuarioSQL = 'INSERT INTO grupos (membro_1) VALUES (?)';
+    
+    db.query(insereUsuarioSQL, [matricula], (err) => {
+      if (err) {
+        res.status(500).send({ error: err });
+      } else {
+        res.status(200).send({ message: 'Usuário adicionado ao grupo com sucesso.' });
+      }
+    });
+  };
+
+  const atualizarGrupo = (matricula, res, colunaVaziaNome) => {
+    // Atualizar grupo com novo usuário em uma coluna vazia (NULL)
+    const atualizaUsuarioSQL = `UPDATE grupos SET ${colunaVaziaNome} = ?`;
+    
+    db.query(atualizaUsuarioSQL, [matricula], (err) => {
+      if (err) {
+        res.status(500).send({ error: err });
+      } else {
+        res.status(200).send({ message: 'Usuário adicionado ao grupo com sucesso.' });
+      }
+    });
+  };
+
+  app.post('/adicionar-usuario-ao-grupo/:matricula', (req, res) => {
+    const matricula = req.params.matricula;
+  
+    // Verifica se o usuário já está no grupo
+    const buscaUsuarioSQL = 'SELECT * FROM grupos WHERE membro_1 = ? OR membro_2 = ? OR membro_3 = ? OR membro_4 = ? OR membro_5 = ? OR membro_6 = ? OR membro_7 = ? OR membro_8 = ?';
+  
+    db.query(buscaUsuarioSQL, [matricula, matricula, matricula, matricula, matricula, matricula, matricula, matricula], (err, results) => {
+      if (err) {
+        res.status(500).send({ error: err });
+      } else {
+        if (results.length === 0) {
+          // Se o grupo estiver vazio, inserir o novo usuário
+          inserirNovoUsuario(matricula, res);
+        } else {
+          // Se o grupo já tiver membros, atualizar o grupo
+          const colunaVaziaNome = encontrarColunaVazia(results[0]);
+          if (colunaVaziaNome) {
+            atualizarGrupo(matricula, res, colunaVaziaNome);
+          } else {
+            res.status(400).send({ message: 'O grupo já está cheio.' });
+          }
+        }
+      }
+    });
+  });
+  
+  
+  // Função auxiliar para encontrar a primeira coluna vazia
+  const encontrarColunaVazia = (grupo) => {
+    for (let i = 1; i <= 8; i++) {
+      const colunaVaziaNome = `membro_${i}`;
+      if (!grupo[colunaVaziaNome]) {
+        return colunaVaziaNome;
+      }
+    }
+    return null; // Retorna null se todas as colunas estiverem ocupadas
+  };
+  
