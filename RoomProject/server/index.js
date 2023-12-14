@@ -29,10 +29,11 @@ app.post('/register', (req, res)=>
     const sentMat = req.body.StudentId
     const sentSenha = req.body.Password
     const sentNome = req.body.Name
+    const sentEmail = req.body.Email
 
-    const SQL = 'INSERT INTO users (name, studentId, password) VALUES (?,?,?)'
+    const SQL = 'INSERT INTO users (name, studentId, password, email) VALUES (?,?,?,?)'
 
-    const Values = [sentNome, sentMat, sentSenha]
+    const Values = [sentNome, sentMat, sentSenha, sentEmail]
 
     db.query(SQL, Values, (err, results) => {
         if (err) {

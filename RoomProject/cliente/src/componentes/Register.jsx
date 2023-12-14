@@ -6,6 +6,7 @@ export const Register = () => {
   const [matricula, setMat] = useState('');
   const [senha, setSenha] = useState('');
   const [nome, setNome] = useState('');
+  const [email, setEmail] = useState('');
 
   const createUser = (e) => {
     e.preventDefault(); // Evita o comportamento padrão de envio do formulário
@@ -13,6 +14,7 @@ export const Register = () => {
       StudentId: matricula,
       Password: senha,
       Name: nome,
+      Email: email,
     }).then(() => {
       console.log('User has been created');
     });
@@ -49,6 +51,16 @@ export const Register = () => {
           id="senha"
           onChange={(e) => setSenha(e.target.value)}
           placeholder="********"
+        />
+
+        <label htmlFor="email">Email</label>
+        <input
+          value={email}
+          type="e-mail"
+          name="email"
+          id="email"
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="Seu email aqui."
         />
 
         <button type="submit">Registrar</button>
